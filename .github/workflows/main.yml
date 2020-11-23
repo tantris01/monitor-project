@@ -1,0 +1,40 @@
+name: run main
+
+# shell to use
+defaults:
+  run:
+    shell: pwsh
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 20 * * *'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  get ads:
+    runs-on: windows-latest
+    steps:
+        
+      # installs python 3.8
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          
+        env:
+          user: ${{secrets.user}}   
+          password: ${{secrets.password}}   
+        
+      # install the required packages
+      - name: Install Packages
+        run: |
+          pip install smtplib ssl selenium bs4
+          
+      # run the python file
+      - name: Run
+        run: python main.py
+
