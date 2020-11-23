@@ -39,6 +39,6 @@ jobs:
       - name: Run
         run: python main.py
         env:
-          user: ${{secrets.user}}   
-          password: ${{secrets.password}}   
+          user: ${{ secrets.USER }}   
+          password: ${{ secrets.PASSWORD }}   
 
