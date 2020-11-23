@@ -14,7 +14,7 @@ def find_posts(url,prev_posts = ''):
     options.headless = True
     options.add_argument("--window-size=1920,1200")
 
-    driver = webdriver.Chrome(options=options, executable_path=DRIVER_PATH)
+    driver = webdriver.Chrome(options=options)
     driver.get(url)
 
     soup = BeautifulSoup(driver.page_source,'html.parser')
