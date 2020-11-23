@@ -3,7 +3,10 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import smtplib, ssl
 import datetime
+from os import environ
 
+user  = environ.get('USER')
+password = environ.get('PASSWORD')
 
 gum_url = 'https://www.gumtree.com.au/s-monitors/melbourne/gaming+monitor/k0c21111l3001317?price=130.00__420.00'
 
