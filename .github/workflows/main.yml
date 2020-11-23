@@ -29,10 +29,6 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
-          
-        env:
-          user: ${{secrets.user}}   
-          password: ${{secrets.password}}   
         
       # install the required packages
       - name: Install Packages
@@ -42,4 +38,7 @@ jobs:
       # run the python file
       - name: Run
         run: python main.py
+        env:
+          user: ${{secrets.user}}   
+          password: ${{secrets.password}}   
 
