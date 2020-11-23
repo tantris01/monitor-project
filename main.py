@@ -5,9 +5,8 @@ import smtplib, ssl
 import datetime
 from os import environ
 
-user  = environ['user']
-print(user)
-password = environ['password']
+user  = f'{environ['user']}'
+password = f'{environ['password']}'
 
 gum_url = 'https://www.gumtree.com.au/s-monitors/melbourne/gaming+monitor/k0c21111l3001317?price=130.00__420.00'
 
