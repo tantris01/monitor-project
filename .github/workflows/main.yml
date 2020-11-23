@@ -32,7 +32,7 @@ jobs:
       # install the required packages
       - name: Install Packages
         run: |
-          pip install smtplib ssl selenium bs4
+          pip install selenium bs4
           
       # run the python file
       - name: Run
