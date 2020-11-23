@@ -8,8 +8,6 @@ import datetime
 gum_url = 'https://www.gumtree.com.au/s-monitors/melbourne/gaming+monitor/k0c21111l3001317?price=130.00__420.00'
 
 def find_posts(url,prev_posts = ''):
-
-    DRIVER_PATH = 'https://github.com/tantris01/monitor-project/tree/main/chromedriver_win32'
     options = Options()
     options.headless = True
     options.add_argument("--window-size=1920,1200")
