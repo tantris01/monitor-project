@@ -9,7 +9,7 @@ gum_url = 'https://www.gumtree.com.au/s-monitors/melbourne/gaming+monitor/k0c211
 
 def find_posts(url,prev_posts = ''):
 
-    DRIVER_PATH = '/repos/tantris01/monitor-project/tree/main/chromedriver_win32'
+    DRIVER_PATH = 'monitor-project/chromedriver_win32/'
     options = Options()
     options.headless = True
     options.add_argument("--window-size=1920,1200")
