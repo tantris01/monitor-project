@@ -56,7 +56,7 @@ def send_notification(posts,user,password):
         server.login(user, password)
         server.sendmail(sender_email, receiver_email, message.encode('utf8'))
 
-
+send_notification(find_posts(gum_url),user,password)
 
 
 
