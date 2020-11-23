@@ -3,7 +3,7 @@ name: run main
 # shell to use
 defaults:
   run:
-    shell: pwsh
+    shell: bash
 
 on:
   push:
@@ -16,8 +16,13 @@ on:
 
 jobs:
   getads:
-    runs-on: windows-latest
+    name: get ads
+    runs-on: ubuntu-latest
     steps:
+      
+      # checkout the branch to prevent conflicts
+      - name: Checkout Branch
+        uses: actions/checkout@v2
         
       # installs python 3.8
       - name: Install Python
