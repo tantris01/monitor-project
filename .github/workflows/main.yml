@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  get ads:
+  get_ads:
     runs-on: windows-latest
     steps:
         
