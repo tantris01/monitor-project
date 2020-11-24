@@ -3,8 +3,10 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import datetime
 from os import environ
-from flask import Flask, render_template, request, redirect, url_for, flash
-from flask_mail import Mail, Message
+# from flask import Flask, render_template, request, redirect, url_for, flash
+# from flask_mail import Mail, Message
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 
 gum_url = 'https://www.gumtree.com.au/s-monitors/melbourne/gaming+monitor/k0c21111l3001317?price=130.00__420.00'
@@ -41,24 +43,26 @@ def find_posts(url,prev_posts = ''):
     return prev_posts + posts
 
 def send_notification(posts):
-    app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'top-secret!'
-    app.config['MAIL_SERVER'] = 'smtp.sendgrid.net'
-    app.config['MAIL_PORT'] = 587
-    app.config['MAIL_USE_TLS'] = True
-    app.config['MAIL_USERNAME'] = 'apikey'
-    app.config['MAIL_PASSWORD'] = environ['SENDGRID_API_KEY']
-    app.config['MAIL_DEFAULT_SENDER'] = environ['MAIL_DEFAULT_SENDER']
-    mail = Mail(app)    
+    # app = Flask(__name__)
+    # app.config['SECRET_KEY'] = 'top-secret!'
+    # app.config['MAIL_SERVER'] = 'smtp.sendgrid.net'
+    # app.config['MAIL_PORT'] = 587
+    # app.config['MAIL_USE_TLS'] = True
+    # app.config['MAIL_USERNAME'] = 'apikey'
+    # app.config['MAIL_PASSWORD'] = environ['SENDGRID_API_KEY']
+    # app.config['MAIL_DEFAULT_SENDER'] = environ['MAIL_DEFAULT_SENDER']
+    # mail = Mail(app)    
 
     today_date = datetime.date.today().strftime("%d:%m:%Y")
     subject = f'monitors {today_date}'
 
-    with app.app_context():
-        msg = Message(subject, recipients=[environ['MAIL_DEFAULT_SENDER']])
-        msg.body = posts
-        mail.send(msg)
-
+    # with app.app_context():
+    #     msg = Message(subject, recipients=[environ['MAIL_DEFAULT_SENDER']])
+    #     msg.body = posts
+    #     mail.send(msg)
+    message = Mail(from_email = environ['MAIL_DEFAULT_SENDER'], to_emails=environ['MAIL_DEFAULT_SENDER'], subject = subject, plain_text_content=posts)
+    sg = SendGridAPIClient(environ['SENDGRID_API_KEY'])
+    response = sg.send(message)
 send_notification(find_posts(gum_url))
 
 
