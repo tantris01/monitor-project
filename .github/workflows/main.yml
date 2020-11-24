@@ -33,12 +33,12 @@ jobs:
       # install the required packages
       - name: Install Packages
         run: |
-          pip install selenium bs4
+          pip install selenium bs4 flask flask-mail python-dotenv
           
       # run the python file
       - name: Run
         run: python main.py
         env:
-          user: ${{ secrets.USER }}   
-          password: ${{ secrets.PASSWORD }}   
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}   
+          MAIL_DEFAULT_SENDER: ${{ secrets.MAIL_DEFAULT_SENDER }}   
 
