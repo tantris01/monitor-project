@@ -54,7 +54,7 @@ def send_notification(posts):
     today_date = datetime.date.today().strftime("%d:%m:%Y")
     subject = f'monitors {today_date}'
 
-    with app.app_context()
+    with app.app_context():
         msg = Message(subject, recipients=[environ['MAIL_DEFAULT_SENDER']])
         msg.body = posts
         mail.send(msg)
