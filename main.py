@@ -48,16 +48,15 @@ def send_notification(posts):
     app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_USERNAME'] = 'apikey'
     app.config['MAIL_PASSWORD'] = environ['SENDGRID_API_KEY']
-    app.config['MAIL_DEFAULT_SENDER'] = environ['MAIL_DEFAULT_SENDER']
+    app.config['MAIL_DEFAULT_SENDER'] = environ['MAIL_DEFAULT_SENDER]
     mail = Mail(app)
 
     today_date = datetime.date.today().strftime("%d:%m:%Y")
     subject = f'monitors {today_date}'
 
-    with app.app_context():
-        msg = Message(subject, recipients=[environ['MAIL_DEFAULT_SENDER']])
-        msg.body = posts
-        mail.send(msg)
+    msg = Message(subject, recipients=[environ['MAIL_DEFAULT_SENDER]])
+    msg.body = posts
+    mail.send(msg)
 
 send_notification(find_posts(gum_url))
 
