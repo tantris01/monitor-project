@@ -4,9 +4,9 @@ from selenium.webdriver.chrome.options import Options
 import smtplib, ssl
 import datetime
 from os import environ
+from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_mail import Mail, Message
 
-user  = environ['user']
-password = environ['password']
 
 gum_url = 'https://www.gumtree.com.au/s-monitors/melbourne/gaming+monitor/k0c21111l3001317?price=130.00__420.00'
 
@@ -41,23 +41,41 @@ def find_posts(url,prev_posts = ''):
     driver.quit()
     return prev_posts + posts
 
-def send_notification(posts,user,password):
-    port = 465  # For SSL
+# def send_notification(posts,user,password):
+#     port = 465  # For SSL
 
-    # Create a secure SSL context
-    context = ssl.create_default_context()
+#     # Create a secure SSL context
+#     context = ssl.create_default_context()
+
+#     today_date = datetime.date.today().strftime("%d:%m:%Y")
+
+#     message = f'Subject: monitors {today_date}\n' + posts
+#     sender_email = user
+#     receiver_email = user
+
+#     with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
+#         server.login(user, password)
+#         server.sendmail(sender_email, receiver_email, message.encode('utf8'))
+
+def send_notification(posts):
+    app = Flask(__name__)
+    app.config['SECRET_KEY'] = 'top-secret!'
+    app.config['MAIL_SERVER'] = 'smtp.sendgrid.net'
+    app.config['MAIL_PORT'] = 587
+    app.config['MAIL_USE_TLS'] = True
+    app.config['MAIL_USERNAME'] = 'apikey'
+    app.config['MAIL_PASSWORD'] = environ.get('SENDGRID_API_KEY')
+    app.config['MAIL_DEFAULT_SENDER'] = environ.get('MAIL_DEFAULT_SENDER')
+    mail = Mail(app)
 
     today_date = datetime.date.today().strftime("%d:%m:%Y")
+    subject = f'monitors {today_date}'
 
-    message = f'Subject: monitors {today_date}\n' + posts
-    sender_email = user
-    receiver_email = user
+    msg = Message(subject, recipients=[environ.get('MAIL_DEFAULT_SENDER')])
+    msg.body = posts
+    mail.send(msg)
 
-    with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
-        server.login(user, password)
-        server.sendmail(sender_email, receiver_email, message.encode('utf8'))
-
-send_notification(find_posts(gum_url),user,password)
+send_notification(find_posts(gum_url))
 
 
 
