@@ -49,12 +49,12 @@ def send_notification(posts):
     app.config['MAIL_USERNAME'] = 'apikey'
     app.config['MAIL_PASSWORD'] = environ['SENDGRID_API_KEY']
     app.config['MAIL_DEFAULT_SENDER'] = environ['MAIL_DEFAULT_SENDER']
-    mail = Mail(app)
+    mail = Mail(app)    
 
     today_date = datetime.date.today().strftime("%d:%m:%Y")
     subject = f'monitors {today_date}'
 
-    msg = Message(subject, recipients=[environ['MAIL_DEFAULT_SENDER]])
+    msg = Message(subject, recipients=[environ['MAIL_DEFAULT_SENDER']])
     msg.body = posts
     mail.send(msg)
 
