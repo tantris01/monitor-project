@@ -44,7 +44,7 @@ def send_notification(posts):
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'top-secret!'
     app.config['MAIL_SERVER'] = 'smtp.sendgrid.net'
-    app.config['MAIL_PORT'] = 587
+    app.config['MAIL_PORT'] = 25
     app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_USERNAME'] = 'apikey'
     app.config['MAIL_PASSWORD'] = environ.get('SENDGRID_API_KEY')
