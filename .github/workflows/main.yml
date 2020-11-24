@@ -33,7 +33,7 @@ jobs:
       # install the required packages
       - name: Install Packages
         run: |
-          pip install selenium bs4
+          pip install selenium bs4 flask flask-mail python-dotenv
           
       # run the python file
       - name: Run
