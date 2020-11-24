@@ -54,9 +54,10 @@ def send_notification(posts):
     today_date = datetime.date.today().strftime("%d:%m:%Y")
     subject = f'monitors {today_date}'
 
-    msg = Message(subject, recipients=[environ['MAIL_DEFAULT_SENDER']])
-    msg.body = posts
-    mail.send(msg)
+    with app.app_context()
+        msg = Message(subject, recipients=[environ['MAIL_DEFAULT_SENDER']])
+        msg.body = posts
+        mail.send(msg)
 
 send_notification(find_posts(gum_url))
 
