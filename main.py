@@ -63,6 +63,7 @@ def send_notification(posts):
     message = Mail(from_email = environ['MAIL_DEFAULT_SENDER'], to_emails=environ['MAIL_DEFAULT_SENDER'], subject = subject, plain_text_content=posts)
     sg = SendGridAPIClient(environ['SENDGRID_API_KEY'])
     response = sg.send(message)
+    
 send_notification(find_posts(gum_url))
 
 
