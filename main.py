@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-import smtplib, ssl
 import datetime
 from os import environ
 from flask import Flask, render_template, request, redirect, url_for, flash
@@ -40,22 +39,6 @@ def find_posts(url,prev_posts = ''):
         return find_posts(new_url,prev_posts+posts)
     driver.quit()
     return prev_posts + posts
-
-# def send_notification(posts,user,password):
-#     port = 465  # For SSL
-
-#     # Create a secure SSL context
-#     context = ssl.create_default_context()
-
-#     today_date = datetime.date.today().strftime("%d:%m:%Y")
-
-#     message = f'Subject: monitors {today_date}\n' + posts
-#     sender_email = user
-#     receiver_email = user
-
-#     with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
-#         server.login(user, password)
-#         server.sendmail(sender_email, receiver_email, message.encode('utf8'))
 
 def send_notification(posts):
     app = Flask(__name__)
