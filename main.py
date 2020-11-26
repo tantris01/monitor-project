@@ -30,6 +30,8 @@ def find_posts(url,prev_posts = ''):
         if data:
             text = data.replace(',','').split(' ')
             #search for keywords
+            keywords = environ['keywords']
+            print(keywords)
             if '144hz' in text or '144htz' in text or '144Hz' in text or '144 hertz' in text:    
                 #creating link to ad        
                 link = f"www.gumtree.com.au{ad.get('href').strip()}"
