@@ -41,4 +41,5 @@ jobs:
         env:
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}   
           MAIL_DEFAULT_SENDER: ${{ secrets.MAIL_DEFAULT_SENDER }}   
+          keywords: '144hz,144htz,144Hz,144 hertz'
 
