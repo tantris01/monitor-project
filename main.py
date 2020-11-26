@@ -30,18 +30,18 @@ def find_posts(url,prev_posts = ''):
         if data:
             text = data.replace(',','').split(' ')
             #search for keywords
-            keywords = environ['keywords']
-            print(keywords)
-            if '144hz' in text or '144htz' in text or '144Hz' in text or '144 hertz' in text:    
-                #creating link to ad        
-                link = f"www.gumtree.com.au{ad.get('href').strip()}"
-                data_split = data.split('\n')
-                #formatting location data
-                loc_date = data_split[2].strip().split('.')
-                #formatting title data
-                title = data_split[0]
-                #adding to posts
-                posts += f'\n{title}\n{data_split[1].strip()}\n{loc_date[0].strip()}\nDate: {loc_date[1].strip()}\n{link}\n'
+            keywords = environ['keywords'].split(',')
+            for keyword in keywords:
+                if keyword in text:
+                    #creating link to ad        
+                    link = f"www.gumtree.com.au{ad.get('href').strip()}"
+                    data_split = data.split('\n')
+                    #formatting location data
+                    loc_date = data_split[2].strip().split('.')
+                    #formatting title data
+                    title = data_split[0]
+                    #adding to posts
+                    posts += f'\n{title}\n{data_split[1].strip()}\n{loc_date[0].strip()}\nDate: {loc_date[1].strip()}\n{link}\n'
 
     #try to find next page link            
     next_page = soup.find('a',class_ = 'page-number-navigation__link page-number-navigation__link-next link link--base-color-primary link--hover-color-none link--no-underline')
